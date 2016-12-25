@@ -1,0 +1,24 @@
+{
+  "name": "magic-mirror",
+  "version": "1.0.0",
+  "description": "NodeJs based magic-mirror",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "Radovan Skendzic",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0",
+    "gulp-jscs": "^4.0.0",
+    "gulp-jshint": "^2.0.4",
+    "jshint": "^2.9.4",
+    "jshint-stylish": "^2.2.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.21.0",
+    "babel-preset-es2015": "^6.18.0",
+    "gulp": "^3.9.1"
+  }
+}
