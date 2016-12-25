@@ -1,1 +1,1 @@
-# node_magic_mirror
+# Magic Mirror (a.k.a Smart Mirror)
