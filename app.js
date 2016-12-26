@@ -27,7 +27,7 @@ app.get('/',(req,res)=>{
 
 app.get('/feed', (req,res)=>{
   const weatherObj = {};
-  
+
   getCurrentWeather()
   .then((currentWeather)=>{
     weatherObj.currentWeather = JSON.parse(currentWeather.text);
