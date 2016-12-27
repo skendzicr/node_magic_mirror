@@ -1,9 +1,34 @@
 $black: #000;
 $white: #fff;
+$gray: #888;
 
 body {
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
     background: $black;
     color: $white;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.current-date {
+    color: $gray;
+    font-size: 1.5em;
+}
+
+.hours-min-sec {
+    display: flex;
+}
+
+.current-time {
+    font-size: 3em;
+    font-weight: 400;
+}
+
+.current-seconds {
+    color: $gray;
+    font-size: 2em;
+    font-weight: 100;
 }
 
 .flex-row {
@@ -12,6 +37,20 @@ body {
     justify-content: space-between;
  }
 
+.top {
+    height: 600px;
+ }
+
 .flex-column {
+    display: flex;
     flex-direction: column;
+}
+
+.news {
+    width: 100%;
+    text-align: center;
+
+    p {
+        font-weight: 100;
+    }
 }

@@ -4,6 +4,11 @@ const express = require('express');
 const request = require('superagent');
 const app = express();
 const port = 3000;
+const server = app.listen(port, (err)=>{
+    console.log('Listening on port', +port);
+});
+const io = require('socket.io')(server);
+let weatherObj = {};
 
 app.use(express.static('dist'));
 
@@ -20,33 +25,31 @@ function getNews() {
   .get(config.news);
 }
 
-app.get('/', (req, res)=>{
-    res.render('index');
-});
-
-app.get('/feed', (req, res)=>{
-    const weatherObj = {};
-
+function prepareFeed() {
     getCurrentWeather()
-  .then((currentWeather)=>{
-      weatherObj.currentWeather = JSON.parse(currentWeather.text);
-      return getForecast();
-  })
-  .then((forecastWeather)=>{
-      weatherObj.forecastWeather = JSON.parse(forecastWeather.text);
-      return getNews();
-  })
-  .then((news)=>{
-      console.log(news.text);
-      weatherObj.news = JSON.parse(news.text).responseData.feed.entries;
-      res.send(weatherObj);
-  })
-  .catch((err)=>{
-      console.log('Houston we have a problem', err);
-  });
+.then((currentWeather)=>{
+    weatherObj.currentWeather = JSON.parse(currentWeather.text);
+    return getForecast();
+})
+.then((forecastWeather)=>{
+    weatherObj.forecastWeather = JSON.parse(forecastWeather.text);
+    return getNews();
+})
+.then((news)=>{
+    weatherObj.news = JSON.parse(news.text).responseData.feed.entries;
+    return weatherObj;
+})
+.catch((err)=>{
+    console.log('Houston we have a problem', err);
 });
+}
 
-
-app.listen(port, (err)=>{
-    console.log('Listening on port', +port);
+io.on('connection', (socket)=>{
+    prepareFeed();
+    socket.emit('feed', weatherObj);
+    setInterval(()=>{
+        console.log('Fetching news and weather');
+        prepareFeed();
+        socket.emit('feed', weatherObj);
+    }, 60000);
 });
