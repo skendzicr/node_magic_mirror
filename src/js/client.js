@@ -1,4 +1,5 @@
 require('../scss/main');
+require('../scss/weather-icons');
 import moment from 'moment';
 const socket = io.connect('http://localhost:3000');
 

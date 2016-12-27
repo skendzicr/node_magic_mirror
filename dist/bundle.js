@@ -72,16 +72,30 @@
 	    }
 	};
 	
+	var toCapitalCase = function toCapitalCase(string) {
+	    return string.charAt(0).toUpperCase() + string.slice(1);
+	};
+	
+	_moment2.default.locale('sr');
+	
 	var currentWeather = void 0;
 	var forecastWeather = void 0;
 	var newsData = void 0;
 	
+	var date = getElement('current-date');
 	var time = getElement('current-time');
-	var newsTitles = getElement('news-titles');
+	var seconds = getElement('current-seconds');
+	var latestNews = getElement('latest-news');
 	var forecastDays = getElement('forecast-days');
 	var Weather = getElement('current-weather');
 	
-	time.innerText = (0, _moment2.default)().format('LTS');
+	var getTime = function getTime() {
+	    var now = (0, _moment2.default)();
+	    date.innerText = toCapitalCase((0, _moment2.default)().format('dddd')) + ', ' + toCapitalCase(now.format('MMMM Do YYYY'));
+	    time.innerText = now.format('LT');
+	    seconds.innerText = now.seconds() < 10 ? '0' + now.seconds() : now.seconds();
+	    setTimeout(getTime, 1000);
+	};
 	
 	socket.on('connect', function () {
 	    return console.log('Socket Connected to Node Mirror App');
@@ -119,35 +133,14 @@
 	};
 	
 	var getNews = function getNews(data) {
-	    if (data !== undefined) removeChildren(newsTitles);
-	    newsTitles.innerHtml = '';
 	    newsData = data.news;
-	    var _iteratorNormalCompletion2 = true;
-	    var _didIteratorError2 = false;
-	    var _iteratorError2 = undefined;
+	    var publishedDate = getElement('latest-news-date');
+	    var newsTitle = getElement('latest-news-title');
+	    var newsContent = getElement('latest-news-content');
 	
-	    try {
-	        for (var _iterator2 = newsData[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-	            var news = _step2.value;
-	
-	            var newsTitle = document.createElement('li');
-	            newsTitle.innerText = news.title;
-	            newsTitles.appendChild(newsTitle);
-	        }
-	    } catch (err) {
-	        _didIteratorError2 = true;
-	        _iteratorError2 = err;
-	    } finally {
-	        try {
-	            if (!_iteratorNormalCompletion2 && _iterator2.return) {
-	                _iterator2.return();
-	            }
-	        } finally {
-	            if (_didIteratorError2) {
-	                throw _iteratorError2;
-	            }
-	        }
-	    }
+	    newsTitle.innerText = newsData[0].title;
+	    newsContent.innerText = newsData[0].content;
+	    publishedDate.innerText = 'N1Info: ' + (0, _moment2.default)(newsData[0].publishedDate).fromNow();
 	};
 	
 	socket.on('feed', function (data) {
@@ -157,6 +150,8 @@
 	    currentWeather = data.currentWeather;
 	    Weather.innerText = currentWeather.main.temp;
 	});
+	
+	getTime();
 
 /***/ },
 /* 2 */
@@ -15093,7 +15088,7 @@
 	
 	
 	// module
-	exports.push([module.id, "body {\n  background: #000;\n  color: #fff; }\n\n.flex-row {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n  -ms-flex-direction: row;\n  flex-direction: row;\n  -webkit-box-pack: justify;\n  -ms-flex-pack: justify;\n  justify-content: space-between; }\n\n.flex-column {\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -ms-flex-direction: column;\n  flex-direction: column; }\n", ""]);
+	exports.push([module.id, "body {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -ms-flex-direction: column;\n  flex-direction: column;\n  padding: 50px;\n  background: #000;\n  color: #fff;\n  font-family: 'Ubuntu', sans-serif; }\n\n.current-date {\n  color: #888;\n  font-size: 1.5em; }\n\n.hours-min-sec {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex; }\n\n.current-time {\n  font-size: 3em;\n  font-weight: 400; }\n\n.current-seconds {\n  color: #888;\n  font-size: 2em;\n  font-weight: 100; }\n\n.flex-row {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n  -ms-flex-direction: row;\n  flex-direction: row;\n  -webkit-box-pack: justify;\n  -ms-flex-pack: justify;\n  justify-content: space-between; }\n\n.top {\n  height: 600px; }\n\n.flex-column {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -ms-flex-direction: column;\n  flex-direction: column; }\n\n.news {\n  width: 100%;\n  text-align: center; }\n  .news p {\n    font-weight: 100; }\n", ""]);
 	
 	// exports
 
