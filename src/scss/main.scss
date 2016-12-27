@@ -1,11 +1,17 @@
+$black: #000;
+$white: #fff;
+
 body {
-  background: black;
-  color: white; }
+    background: $black;
+    color: $white;
+}
 
 .flex-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between; }
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+ }
 
 .flex-column {
-  flex-direction: column; }
+    flex-direction: column;
+}

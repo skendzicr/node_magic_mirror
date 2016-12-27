@@ -1,0 +1,30 @@
+{
+    "extends": [
+        "eslint:recommended",
+        "airbnb-base/legacy"
+    ],
+    "env": {
+        "node": true,
+        "es6": true
+    },
+    "plugins": [
+        "import"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module"
+    },
+    "rules": {
+        "semi": 2,
+        "linebreak-style": 2,
+        "indent": ["error", 4],
+        "no-console": 0,
+        "require-yield": "off",
+        "validateLineBreaks": 0,
+        "func-names": 0,
+        "no-use-before-define" : 1,
+        "consistent-return": 0,
+        "no-unused-vars" : 1,
+        "no-undef" : 1
+    }
+}
