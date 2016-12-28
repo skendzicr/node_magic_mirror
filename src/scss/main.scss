@@ -86,15 +86,38 @@ h3 {
     text-align: right;
 }
 
+.left-heading {
+    font-weight: 100;
+    text-align: left;
+}
+
 .forecast {
     justify-content: flex-end;
     padding-top: 50px;
     border-bottom: thin solid $white;
 }
 
+.motivation {
+    @extend .forecast;
+    justify-content: flex-start;
+}
+
 .forecast-days-column {
     width: 200px;
     padding-top: 20px;
+}
+
+.quote {
+    width: 350px;
+    padding-top: 20px;
+    font-weight: 100;
+}
+
+.motivation-author {
+    padding-top: 10px;
+    font-size: small;
+    font-weight: 900;
+    text-align: right;
 }
 
 .flex-basis {
@@ -110,6 +133,6 @@ h3 {
     text-align: center;
 }
 
-.news-row{
-  justify-content: center;
+.news-row {
+    justify-content: center;
 }

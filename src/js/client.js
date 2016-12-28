@@ -3,7 +3,8 @@ require('../scss/weather-icons');
 require('../scss/weather-icons.wind');
 const util = require('./util');
 const weatherIcons = require('./icons');
-
+const motivation = require('./motivation');
+import convert from './translate';
 import moment from 'moment';
 const socket = io.connect('http://localhost:3000');
 
@@ -34,7 +35,7 @@ let weatherIcon = getElement('weather-icon');
 
 const getTime = () =>{
     const now = moment();
-    date.innerText = toCapitalCase(moment().format('dddd')) + ', ' + toCapitalCase(now.format('MMMM Do YYYY'));
+    date.innerText = convert(toCapitalCase(moment().format('dddd'))) + ', ' + convert(toCapitalCase(now.format('MMMM Do YYYY')));
     time.innerText = now.format('LT');
     seconds.innerText = now.seconds() < 10 ? '0' + now.seconds() : now.seconds();
     setTimeout(getTime, 1000);
@@ -76,7 +77,7 @@ const getForecast = (data)=>{
         let degreeSign2 = degreeSign.cloneNode();
 
         let weekday = document.createElement('div');
-        weekday.innerText = moment.unix(day.dt).format('ddd');
+        weekday.innerText = convert(moment.unix(day.dt).format('ddd'));
         weekday.className = 'flex-basis';
 
         let forecastIcon = document.createElement('i');
@@ -105,9 +106,9 @@ const changeNews = () =>{
     let publishedDate = getElement('latest-news-date');
     let newsTitle = getElement('latest-news-title');
     let newsContent = getElement('latest-news-content');
-    newsTitle.innerText = newsData[index].title;
-    newsContent.innerText = newsData[index].content;
-    publishedDate.innerText = 'N1Info: ' + moment(newsData[index].publishedDate).fromNow();
+    newsTitle.innerText = convert(newsData[index].title);
+    newsContent.innerText = convert(newsData[index].content);
+    publishedDate.innerText = 'N1Info: ' + convert(moment(newsData[index].publishedDate).fromNow());
     index += 1;
 };
 
@@ -139,11 +140,21 @@ const getWeather = (data) =>{
     Weather.innerText = parseFloat(currentWeather.main.temp).toFixed(1);
 };
 
+const getQuote = () => {
+    let author = getElement('motivation-author');
+    let quote = getElement('motivation-quote');
+    let random = Math.floor(Math.random() * 10) + 1;
+
+    quote.innerText = motivation[random].motivation;
+    author.innerText = '- ' + motivation[random].author;
+};
+
 
 socket.on('feed', function (data) {
     getForecast(data);
     getNews(data);
     getWeather(data);
+    getQuote();
     console.log(data);
 });
 
