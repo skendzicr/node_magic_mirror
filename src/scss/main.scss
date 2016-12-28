@@ -47,10 +47,69 @@ body {
 }
 
 .news {
-    width: 100%;
+    width: 600px;
     text-align: center;
 
     p {
         font-weight: 100;
     }
+}
+
+.main-weather {
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.current-weather, .degrees-big {
+    font-size: 3em;
+}
+
+.weather-icon {
+    padding-right: 15px;
+    font-size: 2em;
+}
+
+.second-row {
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 1em;
+    font-weight: 100;
+}
+
+.wind-icon {
+    padding-right: 10px;
+    font-size: 2em;
+}
+
+h3 {
+    font-weight: 100;
+    text-align: right;
+}
+
+.forecast {
+    justify-content: flex-end;
+    padding-top: 50px;
+    border-bottom: thin solid $white;
+}
+
+.forecast-days-column {
+    width: 200px;
+    padding-top: 20px;
+}
+
+.flex-basis {
+    flex-basis: 20%;
+}
+
+.text-align-right {
+    text-align: right;
+}
+
+.fixed-width {
+    width: 20px;
+    text-align: center;
+}
+
+.news-row{
+  justify-content: center;
 }

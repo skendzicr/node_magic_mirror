@@ -28,7 +28,7 @@ let date = getElement('current-date');
 let time = getElement('current-time');
 let seconds = getElement('current-seconds');
 
-let forecastDays = getElement('forecast-days');
+let forecastDays = getElement('forecast-days-column');
 let Weather = getElement('current-weather');
 let weatherIcon = getElement('weather-icon');
 
@@ -42,13 +42,56 @@ const getTime = () =>{
 
 socket.on('connect', () => console.log('Socket Connected to Node Mirror App'));
 
+const getIcon = (code) => {
+    let prefix = 'wi wi-';
+    let icon = weatherIcons[code].icon;
+    if (!(code > 699 && code < 800) && !(code > 899 && code < 1000)) {
+        icon = prefix + 'day-' + icon;
+    } else {
+        icon = prefix + icon;
+    }
+    return icon;
+};
+
 const getForecast = (data)=>{
     if (data !== undefined) removeChildren(forecastDays);
     forecastWeather = data.forecastWeather.list;
     for (let day of forecastWeather) {
-        let forecastDay = document.createElement('li');
-        forecastDay.innerText = day.temp.day;
+        let forecastDay = document.createElement('div');
+        forecastDay.className = 'flex-row';
+
+        let forecastMax = document.createElement('div');
+        let tempMax = document.createElement('span');
+        tempMax.innerText = day.temp.max;
+        forecastMax.className = 'flex-basis text-align-right';
+
+        let forecastMin = document.createElement('div');
+        let tempMin = document.createElement('span');
+        tempMin.innerText = day.temp.min;
+        forecastMin.className = 'flex-basis text-align-right';
+
+        let degreeSign = document.createElement('i');
+        degreeSign.className = 'wi wi-degrees flex-basis';
+
+        let degreeSign2 = degreeSign.cloneNode();
+
+        let weekday = document.createElement('div');
+        weekday.innerText = moment.unix(day.dt).format('ddd');
+        weekday.className = 'flex-basis';
+
+        let forecastIcon = document.createElement('i');
+        let icon = getIcon(day.weather[0].id);
+        forecastIcon.className = icon + ' fixed-width flex-basis';
+
         forecastDays.appendChild(forecastDay);
+        forecastDay.appendChild(weekday);
+        forecastDay.appendChild(forecastIcon);
+        forecastDay.appendChild(forecastMax);
+        forecastDay.appendChild(forecastMin);
+        forecastMax.appendChild(tempMax);
+        forecastMax.appendChild(degreeSign);
+        forecastMin.appendChild(tempMin);
+        forecastMin.appendChild(degreeSign2);
     }
 };
 
@@ -66,22 +109,23 @@ const getNews = (data)=>{
 
 const getWind = (data) => {
     let windIcon = getElement('wind-icon');
+    let windStrength = getElement('wind-strength');
     let wind = data.wind.speed;
-    let prefix = 'wi wi-wind-beaufort-';
-    let windStrength = util.beaufortScale(wind);
-    windIcon.className = prefix + windStrength;
+    let prefix = 'wind-icon wi wi-wind-beaufort-';
+    let beaufort = util.beaufortScale(wind);
+    windIcon.className = prefix + beaufort;
+    windStrength.innerText = wind + 'm/s';
 };
+
+
 const getWeather = (data) =>{
-    let prefix = 'wi wi-';
+    let prefix = 'weather-icon wi wi-';
     currentWeather = data.currentWeather;
     getWind(currentWeather);
     let code = currentWeather.weather[0].id;
-    let icon = weatherIcons[code].icon;
-    if (!(code > 699 && code < 800) && !(code > 899 && code < 1000)) {
-        icon = 'day-' + icon;
-    }
+    let icon = getIcon(code);
     weatherIcon.className = prefix + icon;
-    Weather.innerText = currentWeather.main.temp;
+    Weather.innerText = parseFloat(currentWeather.main.temp).toFixed(1);
 };
 
 

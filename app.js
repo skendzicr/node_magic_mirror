@@ -9,6 +9,7 @@ const server = app.listen(port, (err)=>{
 });
 const io = require('socket.io')(server);
 let weatherObj = {};
+let sockets = [];
 
 app.use(express.static('dist'));
 
@@ -26,7 +27,7 @@ function getNews() {
 }
 
 function prepareFeed() {
-    getCurrentWeather()
+    return getCurrentWeather()
 .then((currentWeather)=>{
     weatherObj.currentWeather = JSON.parse(currentWeather.text);
     return getForecast();
@@ -44,12 +45,24 @@ function prepareFeed() {
 });
 }
 
+prepareFeed();
+
+setInterval(()=>{
+    console.log('Fetching news...');
+    prepareFeed()
+  .then(() => {
+      sockets.forEach(item => item.socket.emit('feed', weatherObj));
+  });
+}, 60000);
+
 io.on('connection', (socket)=>{
-    prepareFeed();
     socket.emit('feed', weatherObj);
-    setInterval(()=>{
-        console.log('Fetching news and weather');
-        prepareFeed();
-        socket.emit('feed', weatherObj);
-    }, 60000);
+    const uuid = Math.random().toString(36).substring(7);
+    sockets.push({
+        uuid,
+        socket
+    });
+    socket.on('disconnect', () => {
+        sockets = sockets.filter(item => item.uuid !== uuid);
+    });
 });

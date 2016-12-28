@@ -17,16 +17,24 @@
         </div>
       </div>
       <div class="flex-column">
-        <div>
-          Prognoza
+        <div class="flex-row main-weather">
+          <i id="weather-icon" class=""></i>
+          <span id="current-weather" class="current-weather"></span>
+          <i class="wi wi-degrees degrees-big"></i>
         </div>
-        <div id="current-weather"></div>
-        <i id="weather-icon" class=""></i>
-        <i id="wind-icon" class=""></i>
-        <ul id="forecast-days"></ul>
+        <div class="flex-row second-row">
+          <i id="wind-icon"></i>
+          <i id="wind-strength"></i>
+        </div>
+        <div class="flex-row forecast">
+          <h3>PROGNOZA</h3>
+        </div>
+        <div id="forecast-days-row" class="flex-row">
+          <div id="forecast-days-column" class="flex-column forecast-days-column"></div>
+        </div>
       </div>
     </div>
-    <div class="flex-row">
+    <div class="flex-row news-row">
       <div id="latest-news" class="flex-column news">
         <p id="latest-news-date"></p>
         <h1 id="latest-news-title"></h1>
