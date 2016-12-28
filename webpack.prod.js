@@ -7,7 +7,7 @@ config.output.filename = 'bundle.js';
 
 config.plugins = [
     new Md5Hash(),
-    new ExtractText('main.scss'),
+    new ExtractText('main.css'),
     new webpack.optimize.UglifyJsPlugin({
         compress: {
             warnings: false
