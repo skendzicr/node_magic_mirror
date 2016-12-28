@@ -94,17 +94,28 @@ const getForecast = (data)=>{
         forecastMin.appendChild(degreeSign2);
     }
 };
+let index = 0;
+let timeout;
 
-const getNews = (data)=>{
-    newsData = data.news;
+const changeNews = () =>{
+    timeout = setTimeout(changeNews, 15000);
+    if (index === newsData.length) {
+        return;
+    }
     let publishedDate = getElement('latest-news-date');
     let newsTitle = getElement('latest-news-title');
     let newsContent = getElement('latest-news-content');
+    newsTitle.innerText = newsData[index].title;
+    newsContent.innerText = newsData[index].content;
+    publishedDate.innerText = 'N1Info: ' + moment(newsData[index].publishedDate).fromNow();
+    index += 1;
+};
 
-
-    newsTitle.innerText = newsData[0].title;
-    newsContent.innerText = newsData[0].content;
-    publishedDate.innerText = 'N1Info: ' + moment(newsData[0].publishedDate).fromNow();
+const getNews = (data)=>{
+    newsData = data.news;
+    index = 0;
+    clearTimeout(timeout);
+    changeNews();
 };
 
 const getWind = (data) => {
