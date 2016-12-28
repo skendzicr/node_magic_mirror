@@ -1,5 +1,9 @@
 require('../scss/main');
 require('../scss/weather-icons');
+require('../scss/weather-icons.wind');
+const util = require('./util');
+const weatherIcons = require('./icons');
+
 import moment from 'moment';
 const socket = io.connect('http://localhost:3000');
 
@@ -23,9 +27,10 @@ let newsData;
 let date = getElement('current-date');
 let time = getElement('current-time');
 let seconds = getElement('current-seconds');
-let latestNews = getElement('latest-news');
+
 let forecastDays = getElement('forecast-days');
 let Weather = getElement('current-weather');
+let weatherIcon = getElement('weather-icon');
 
 const getTime = () =>{
     const now = moment();
@@ -53,17 +58,38 @@ const getNews = (data)=>{
     let newsTitle = getElement('latest-news-title');
     let newsContent = getElement('latest-news-content');
 
+
     newsTitle.innerText = newsData[0].title;
     newsContent.innerText = newsData[0].content;
     publishedDate.innerText = 'N1Info: ' + moment(newsData[0].publishedDate).fromNow();
 };
 
+const getWind = (data) => {
+    let windIcon = getElement('wind-icon');
+    let wind = data.wind.speed;
+    let prefix = 'wi wi-wind-beaufort-';
+    let windStrength = util.beaufortScale(wind);
+    windIcon.className = prefix + windStrength;
+};
+const getWeather = (data) =>{
+    let prefix = 'wi wi-';
+    currentWeather = data.currentWeather;
+    getWind(currentWeather);
+    let code = currentWeather.weather[0].id;
+    let icon = weatherIcons[code].icon;
+    if (!(code > 699 && code < 800) && !(code > 899 && code < 1000)) {
+        icon = 'day-' + icon;
+    }
+    weatherIcon.className = prefix + icon;
+    Weather.innerText = currentWeather.main.temp;
+};
+
+
 socket.on('feed', function (data) {
     getForecast(data);
     getNews(data);
+    getWeather(data);
     console.log(data);
-    currentWeather = data.currentWeather;
-    Weather.innerText = currentWeather.main.temp;
 });
 
 getTime();
