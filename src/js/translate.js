@@ -37,6 +37,12 @@ export default function convert(lat) {
         ['š', 'ш']
     ];
 
+    let word = lat;
+
+    digraphs.forEach(digraph => {
+        word = word.split(digraph[0]).join(digraph[1]);
+    });
+
     function findReplace(arr) {
         return letter => {
             const item = arr.find(arrItem => arrItem[0] === letter);
@@ -44,9 +50,8 @@ export default function convert(lat) {
         };
     }
 
-    const letters = lat.split('');
+    const letters = word.split('');
     return letters
-    .map(findReplace(digraphs))
     .map(findReplace(map))
     .map(letter => {
         let item = map.find(arrItem => arrItem[0].toLocaleUpperCase() ===
