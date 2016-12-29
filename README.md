@@ -27,9 +27,3 @@ If you have NodeJS installed on your Raspberry PI, running `node app.js` will se
 * Check this deployment and implementation on Raspberry PI.
 *  Find out how to rotate screen to portrait.
 *  Decide if there is need for bash script for Raspberry PI deployment
-
-Table of contents
--------------------
-
-
-[TOC]
