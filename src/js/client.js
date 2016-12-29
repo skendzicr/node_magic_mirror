@@ -17,9 +17,8 @@ const removeChildren = (node) => {
     }
 };
 
-const toCapitalCase = (string) =>{
-    return string.charAt(0).toUpperCase() + string.slice(1);
-};
+const toCapitalCase = string => string.charAt(0).toUpperCase() + string.slice(1);
+
 
 moment.locale('sr');
 
@@ -45,7 +44,7 @@ const getTime = () =>{
 
 socket.on('connect', () => console.log('Socket Connected to Node Mirror App'));
 
-const getIcon = (code) => {
+const getIcon = code => {
     let prefix = 'wi wi-';
     let icon = weatherIcons[code].icon;
     if (!(code > 699 && code < 800) && !(code > 899 && code < 1000)) {
@@ -56,7 +55,7 @@ const getIcon = (code) => {
     return icon;
 };
 
-const getForecast = (data)=>{
+const getForecast = data => {
     if (data !== undefined) removeChildren(forecastDays);
     forecastWeather = data.forecastWeather.list;
     for (let day of forecastWeather) {
@@ -110,21 +109,21 @@ const changeNews = () =>{
     let newsContent = getElement('latest-news-content');
     newsTitle.innerText = convert(newsData[index].title);
     newsContent.innerText = convert(newsData[index].content);
-    publishedDate.innerText = 'N1Info: ' + convert(moment(newsData[index].publishedDate).fromNow());
+    let hoursAgo = new Date(newsData[index].publishedDate);
+    publishedDate.innerText = 'N1Info: ' + convert(moment(hoursAgo).fromNow());
     index += 1;
 };
 
-const getNews = (data)=>{
+const getNews = data =>{
     let newsColumn = getElement('latest-news');
     newsData = data.news;
-    index === newsData.length ? newsColumn.className.replace('animate', '') : false;
     index = 0;
     clearTimeout(timeout);
     changeNews();
     newsColumn.classList.contains('animate') ? false : newsColumn.className += ' animate';
 };
 
-const getWind = (data) => {
+const getWind = data => {
     let windIcon = getElement('wind-icon');
     let windStrength = getElement('wind-strength');
     let wind = data.wind.speed;
@@ -135,7 +134,7 @@ const getWind = (data) => {
 };
 
 
-const getWeather = (data) =>{
+const getWeather = data =>{
     let prefix = 'weather-icon wi wi-';
     currentWeather = data.currentWeather;
     getWind(currentWeather);
@@ -155,7 +154,7 @@ const getQuote = () => {
 };
 
 
-socket.on('feed', function (data) {
+socket.on('feed', data => {
     getForecast(data);
     getNews(data);
     getWeather(data);
