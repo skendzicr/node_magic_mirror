@@ -4,7 +4,7 @@ require('../scss/weather-icons.wind');
 import util from './util';
 import weatherIcons from './icons';
 import motivation from './motivation';
-import convert from './translate';
+import convert from 'latin-to-serbian-cyrillic';
 import moment from 'moment';
 
 
