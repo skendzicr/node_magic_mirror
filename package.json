@@ -4,7 +4,6 @@
   "description": "NodeJs based magic-mirror",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently \"nodemon --watch server app.js\" \"npm run watch\"",
     "build": "babel src/client.js --out-file dist/client.js",
     "watch": "webpack-dev-server --progress --inline --hot --config webpack.dev.js --display-error-details",
