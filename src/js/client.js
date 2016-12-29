@@ -147,7 +147,7 @@ const getWeather = data =>{
 const getQuote = () => {
     let author = getElement('motivation-author');
     let quote = getElement('motivation-quote');
-    let random = Math.floor(Math.random() * 10) + 1;
+    let random = Math.floor(Math.random() * 30) + 1;
 
     quote.innerText = motivation[random].motivation;
     author.innerText = '- ' + motivation[random].author;
