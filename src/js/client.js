@@ -73,7 +73,7 @@ const getForecast = data => {
         forecastMin.className = 'flex-basis text-align-right';
 
         let degreeSign = document.createElement('i');
-        degreeSign.className = 'wi wi-degrees flex-basis';
+        degreeSign.className = 'wi wi-degrees';
 
         let degreeSign2 = degreeSign.cloneNode();
 

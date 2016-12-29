@@ -155,7 +155,7 @@ h3 {
 }
 
 .flex-basis {
-    flex-basis: 20%;
+    flex-basis: 25%;
 }
 
 .text-align-right {
@@ -164,6 +164,7 @@ h3 {
 
 .fixed-width {
     width: 20px;
+    flex-basis: 20%;
     text-align: center;
 }
 
