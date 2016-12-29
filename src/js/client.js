@@ -1,11 +1,13 @@
 require('../scss/main');
 require('../scss/weather-icons');
 require('../scss/weather-icons.wind');
-const util = require('./util');
-const weatherIcons = require('./icons');
-const motivation = require('./motivation');
+import util from './util';
+import weatherIcons from './icons';
+import motivation from './motivation';
 import convert from './translate';
 import moment from 'moment';
+
+
 const socket = io.connect('http://localhost:3000');
 
 const getElement = elementId => document.getElementById(elementId);
@@ -113,10 +115,13 @@ const changeNews = () =>{
 };
 
 const getNews = (data)=>{
+    let newsColumn = getElement('latest-news');
     newsData = data.news;
+    index === newsData.length ? newsColumn.className.replace('animate', '') : false;
     index = 0;
     clearTimeout(timeout);
     changeNews();
+    newsColumn.classList.contains('animate') ? false : newsColumn.className += ' animate';
 };
 
 const getWind = (data) => {
@@ -155,7 +160,6 @@ socket.on('feed', function (data) {
     getNews(data);
     getWeather(data);
     getQuote();
-    console.log(data);
 });
 
 getTime();

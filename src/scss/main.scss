@@ -53,6 +53,36 @@ body {
     p {
         font-weight: 100;
     }
+
+}
+
+.animate {
+    animation: news-animation 15s infinite;
+}
+
+@keyframes news-animation {
+    0% {
+        transform: rotateX(90deg);
+        opacity: 0;
+    }
+
+    20% {
+        transform: rotateX(0deg);
+        opacity: 1;
+    }
+
+    70% {
+        transform: rotateX(0deg);
+        opacity: 1;
+    }
+
+    90% {
+        transform: rotateX(-90deg);
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
 }
 
 .main-weather {
