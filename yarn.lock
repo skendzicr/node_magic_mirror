@@ -2906,8 +2906,8 @@ latest-version@^1.0.0:
     package-json "^1.0.0"
 
 latin-to-serbian-cyrillic@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/latin-to-serbian-cyrillic/-/latin-to-serbian-cyrillic-1.0.0.tgz#b61c0d4aa0e3be5c68b808d88119facb6f7efd4a"
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/latin-to-serbian-cyrillic/-/latin-to-serbian-cyrillic-1.0.2.tgz#34931540f337120895c2b59ba3d4e77771d1e8cf"
 
 lazy-cache@^1.0.3:
   version "1.0.4"
@@ -4252,11 +4252,11 @@ q@^1.1.2:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/q/-/q-1.4.1.tgz#55705bcd93c5f3673530c2c2cbc0c2b3addc286e"
 
-qs@6.2.0, qs@^6.1.0:
+qs@6.2.0:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.2.0.tgz#3b7848c03c2dece69a9522b0fae8c4126d745f3b"
 
-qs@~6.3.0:
+qs@^6.1.0, qs@~6.3.0:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.3.0.tgz#f403b264f23bc01228c74131b407f18d5ea5d442"
 
