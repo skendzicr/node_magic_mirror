@@ -107,9 +107,9 @@ const changeNews = () =>{
     let publishedDate = getElement('latest-news-date');
     let newsTitle = getElement('latest-news-title');
     let newsContent = getElement('latest-news-content');
-    newsTitle.innerText = convert(newsData[index].title);
-    newsContent.innerText = convert(newsData[index].content);
-    let hoursAgo = new Date(newsData[index].publishedDate);
+    newsTitle.innerText = convert(newsData[index].title[0]);
+    newsContent.innerText = convert(newsData[index].description[0]);
+    let hoursAgo = new Date(newsData[index].pubDate[0]);
     publishedDate.innerText = 'N1Info: ' + convert(moment(hoursAgo).fromNow());
     index += 1;
 };

@@ -8,6 +8,7 @@ const server = app.listen(port, (err)=>{
     console.log('Listening on port', +port);
 });
 const io = require('socket.io')(server);
+let xml2js = require('xml2js');
 let weatherObj = {};
 let sockets = [];
 
@@ -37,7 +38,11 @@ function prepareFeed() {
     return getNews();
 })
 .then((news)=>{
-    weatherObj.news = JSON.parse(news.text).responseData.feed.entries;
+    let parser = new xml2js.Parser();
+    parser.parseString(news.text, (err, res)=>{
+        weatherObj.news = res.rss.channel[0].item;
+    });
+    // weatherObj.news = parser;
     return weatherObj;
 })
 .catch((err)=>{
