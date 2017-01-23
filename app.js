@@ -42,7 +42,6 @@ function prepareFeed() {
     parser.parseString(news.text, (err, res)=>{
         weatherObj.news = res.rss.channel[0].item;
     });
-    // weatherObj.news = parser;
     return weatherObj;
 })
 .catch((err)=>{
