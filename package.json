@@ -19,9 +19,9 @@
     "express": "^4.14.0",
     "latin-to-serbian-cyrillic": "^1.0.0",
     "moment": "^2.17.1",
-
     "socket.io": "^1.7.2",
-    "superagent": "^3.3.1"
+    "superagent": "^3.3.1",
+    "xml2js": "^0.4.17"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
