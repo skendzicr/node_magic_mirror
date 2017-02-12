@@ -24,21 +24,18 @@ Run command `npm run build:d`. This will create **dist** folder.
 If you have NodeJS installed on your Raspberry PI, running `node app.js` will serve your MagicMirror application on `localhost:3000`
 
 To handle screensaver and cursor showing, install `sudo apt-get install x11-xserver-utils unclutter` and then change autostart script `sudo nano .config/lxsession/LXDE-pi/autostart`. Add these lines: 
-`
-@/usr/bin/chromium-browser --kiosk --disable-restore-session-state http://localhost:3000/
+`@/usr/bin/chromium-browser --kiosk --disable-restore-session-state http://localhost:3000/
 @xset s noblank
 @xset s off
 @xset -dpms
-@unclutter -idle 0.1 -root
+@unclutter -idle 0.1 -root`
 
-`
 To change when Pi is going to sleep run `sudo nano /etc/lightdm/lightdm.conf` and change the line `xserver-command= X -s 0 -dpms` 
 
 Make a script, that will be in charge of running the app on boot. 
-`#!/bin/sh
-
+` #!/bin/sh
 cd /home/pi/projects/node_magic_mirror/
-node app.js`
+node app.js `
 save it in folder scripts, and name it `magicmirror.sh` for example. We are going to use it in cron job. Type `sudo crontab -e` and add this line of code `@reboot /home/pi/scripts/magicmirror.sh`.
 
 Now you should reboot the Pi with `sudo reboot`, and it should automatically open chromium in full screen mode, and our app up and running. 
