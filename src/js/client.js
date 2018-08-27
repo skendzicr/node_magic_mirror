@@ -5,8 +5,8 @@ import util from './util';
 import weatherIcons from './icons';
 import motivation from './motivation';
 import convert from 'latin-to-serbian-cyrillic';
-import moment from 'moment';
-
+import moment from 'moment/min/moment-with-locales';
+moment.locale('sr');
 
 const socket = io.connect('http://localhost:3000');
 
@@ -18,9 +18,6 @@ const removeChildren = (node) => {
 };
 
 const toCapitalCase = string => string.charAt(0).toUpperCase() + string.slice(1);
-
-
-moment.locale('sr');
 
 let currentWeather;
 let forecastWeather;
@@ -36,7 +33,8 @@ let weatherIcon = getElement('weather-icon');
 
 const getTime = () =>{
     const now = moment();
-    date.innerText = convert(toCapitalCase(moment().format('dddd'))) + ', ' + convert(toCapitalCase(now.format('MMMM Do YYYY')));
+    now.locale('sr');
+    date.innerText = convert(toCapitalCase(now.format('dddd'))) + ', ' + convert(toCapitalCase(now.format('MMMM Do YYYY')));
     time.innerText = now.format('LT');
     seconds.innerText = now.seconds() < 10 ? '0' + now.seconds() : now.seconds();
     setTimeout(getTime, 1000);
@@ -48,7 +46,7 @@ const getIcon = code => {
     let prefix = 'wi wi-';
     let icon = weatherIcons[code].icon;
     if (!(code > 699 && code < 800) && !(code > 899 && code < 1000)) {
-        icon = prefix + 'day-' + icon;
+        icon = `${prefix}day-${icon}`;
     } else {
         icon = prefix + icon;
     }
@@ -110,7 +108,7 @@ const changeNews = () =>{
     newsTitle.innerText = convert(newsData[index].title[0]);
     newsContent.innerText = convert(newsData[index].description[0]);
     let hoursAgo = new Date(newsData[index].pubDate[0]);
-    publishedDate.innerText = 'N1Info: ' + convert(moment(hoursAgo).fromNow());
+    publishedDate.innerText = 'N1Info: ' + convert(moment(hoursAgo).locale('sr').fromNow());
     index += 1;
 };
 

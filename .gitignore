@@ -19,6 +19,8 @@
 ._*
 .Spotlight-V100
 .Trashes
+.cache
+.vscode
 ehthumbs.db
 Thumbs.db
 
